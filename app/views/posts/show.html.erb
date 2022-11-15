@@ -1,0 +1,39 @@
+<div>aaa
+aaa
+aaa</div>
+<div>
+  <%= @post.body %>
+  <div>
+    <% if Like.find_by(post_id: @post.id, ip: request.remote_ip) %>
+      <%= link_to '👍けしたい', post_likes_path(@post), method: :delete %>
+    <% else %>
+      <%= link_to '👍したい', post_likes_path(@post), method: :post %>
+    <% end %>
+    <%= @likes.count %>
+  </div>
+  <div>
+    <% if Dislike.find_by(post_id: @post.id, ip: request.remote_ip) %>
+      <%= link_to '👎けしたい', post_dislikes_path(@post), method: :delete %>
+    <% else %>
+      <%= link_to '👎したい', post_dislikes_path(@post), method: :post %>
+    <% end %>
+    <%= Dislike.where(post_id: @post.id).count %> 
+  </div>
+</div>
+
+<div>
+  <%= form_with model: @comment ,local: true do |f| %>
+    <%= f.hidden_field :post_id, value: @post.id %>
+    <% f.label :body %>
+    <%= f.text_area :body %>
+    <%= f.submit %>
+  <% end %>
+</div>
+
+<div>
+  <% if @comments %>
+    <% @comments.each do |comment| %>
+      <%= comment.body %>
+    <% end %>
+  <% end %>
+</div>
