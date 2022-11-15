@@ -9,7 +9,7 @@ class PostsController < ApplicationController
     if @post.save
       redirect_back(fallback_location: root_path)
     else
-      render :index
+      redirect_back(fallback_location: root_path)
     end
   end
 

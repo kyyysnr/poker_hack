@@ -1,10 +1,12 @@
 Rails.application.routes.draw do
 
+  devise_for :users
   root to:"homes#top"
   get "about" => "homes#about", as: :about
   resources :posts do
     resource :likes, only: [:create,:destroy]
     resource :dislikes, only: [:create,:destroy]
+    resource :favorites, only: [:create,:destroy]
   end
   resources :comments  do
     resource :comment_likes, only: [:create, :destroy]

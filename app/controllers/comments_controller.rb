@@ -13,7 +13,7 @@ class CommentsController < ApplicationController
       @post.save
       redirect_back(fallback_location: root_path)
     else
-      render post_path(@comment.post_id)
+      redirect_back(fallback_location: root_path)
     end
   end
 
