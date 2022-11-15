@@ -17,7 +17,7 @@ aaa</div>
     <% else %>
       <%= link_to '👎したい', post_dislikes_path(@post), method: :post %>
     <% end %>
-    <%= Dislike.where(post_id: @post.id).count %> 
+    <%= Dislike.where(post_id: @post.id).count %>
   </div>
 </div>
 
@@ -34,6 +34,22 @@ aaa</div>
   <% if @comments %>
     <% @comments.each do |comment| %>
       <%= comment.body %>
+      <div>
+        <% if CommentLike.find_by(comment_id: comment.id, ip: request.remote_ip) %>
+          <%= link_to '👍けしたい',  comment_comment_likes_path(comment), method: :delete %>
+        <% else %>
+          <%= link_to '👍したい',  comment_comment_likes_path(comment), method: :post %>
+        <% end %>
+        <%= CommentLike.where(comment_id: comment.id).count %>
+      </div>
+      <div>
+        <% if CommentDislike.find_by(comment_id: comment.id, ip: request.remote_ip) %>
+          <%= link_to '👎けしたい', comment_comment_dislikes_path(comment), method: :delete %>
+        <% else %>
+          <%= link_to '👎したい', comment_comment_dislikes_path(comment), method: :post %>
+        <% end %>
+        <%= CommentDislike.where(comment_id: comment.id).count %>
+      </div>
     <% end %>
   <% end %>
 </div>

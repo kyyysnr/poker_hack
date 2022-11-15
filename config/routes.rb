@@ -6,6 +6,9 @@ Rails.application.routes.draw do
     resource :likes, only: [:create,:destroy]
     resource :dislikes, only: [:create,:destroy]
   end
-  resources :comments
+  resources :comments  do
+    resource :comment_likes, only: [:create, :destroy]
+    resource :comment_dislikes, only: [:create, :destroy]
+  end
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

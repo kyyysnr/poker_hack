@@ -10,7 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_11_14_123850) do
+ActiveRecord::Schema.define(version: 2022_11_15_032247) do
+
+  create_table "comment_dislikes", force: :cascade do |t|
+    t.integer "comment_id"
+    t.string "ip"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "comment_likes", force: :cascade do |t|
+    t.integer "comment_id"
+    t.string "ip"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   create_table "comments", force: :cascade do |t|
     t.integer "post_id"

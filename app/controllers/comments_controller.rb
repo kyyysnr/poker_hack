@@ -7,6 +7,10 @@ class CommentsController < ApplicationController
   def create
     @comment = Comment.new(comment_params)
     if @comment.save
+      @post = Post.find_by(id: @comment.post_id)
+      #コメントが新規入力された時に元の投稿のupdated_atを変えることによりpost/indexで並び順を変える
+      @post.updated_at = @comment.created_at
+      @post.save
       redirect_back(fallback_location: root_path)
     else
       render post_path(@comment.post_id)
