@@ -1,4 +1,6 @@
 class FavoritesController < ApplicationController
+  before_action :authenticate_user!
+
   def create
     @post = Post.find(params[:post_id])
     @user = User.find(current_user.id)
@@ -14,7 +16,7 @@ class FavoritesController < ApplicationController
     @favorite.destroy
     redirect_back(fallback_location: root_path)
   end
-  
+
   def index
     @favorites = Favorite.where(user_id: current_user.id)
   end

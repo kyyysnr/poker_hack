@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: one
+  playtime: 1
+  buy_in: 1
+  cash_out: 1
+
+two:
+  user: two
+  playtime: 1
+  buy_in: 1
+  cash_out: 1

@@ -10,7 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_11_15_140105) do
+ActiveRecord::Schema.define(version: 2022_11_16_031726) do
+
+  create_table "bankrolls", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "playtime"
+    t.integer "buy_in"
+    t.integer "cash_out"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_bankrolls_on_user_id"
+  end
 
   create_table "comment_dislikes", force: :cascade do |t|
     t.integer "comment_id"
@@ -82,6 +92,7 @@ ActiveRecord::Schema.define(version: 2022_11_15_140105) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "bankrolls", "users"
   add_foreign_key "dislikes", "posts"
   add_foreign_key "favorites", "posts"
   add_foreign_key "favorites", "users"
