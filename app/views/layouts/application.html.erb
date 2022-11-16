@@ -24,6 +24,9 @@
           <%= link_to destroy_user_session_path, method: :delete do %>
             Log out
           <% end %>
+          <%= link_to favorites_path do %>
+            Favorite
+          <% end %>
         <% else %>
           <%= link_to new_user_session_path do %>
             Log in
