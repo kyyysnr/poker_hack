@@ -1,0 +1,6 @@
+<p>お気に入り一覧</p>
+<% @favorites.each do |favorite| %>
+  <%= link_to post_path(favorite.post.id) do %>
+    <%= favorite.post.body %>
+  <% end %>
+<% end %>
