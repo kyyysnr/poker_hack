@@ -12,29 +12,33 @@
 
   <body>
     <header>
-      <div>
-        <h1>
-          <%= link_to posts_path do %>
-            PokerHack
-          <% end %>
-        </h1>
-      </div>
-      <div>
-        <% if user_signed_in? %>
-          <%= link_to destroy_user_session_path, method: :delete do %>
-            Log out
-          <% end %>
-          <%= link_to favorites_path do %>
-            Favorite
-          <% end %>
-        <% else %>
-          <%= link_to new_user_session_path do %>
-            Log in
-          <% end %>
-          <%= link_to  new_user_registration_path do %>
-            Sign up
-          <% end %>
-        <% end %>
+      <div class="container">
+        <div class="row">
+          <div class="col-8">
+            <h1>
+              <%= link_to posts_path do %>
+                PokerHack
+              <% end %>
+            </h1>
+          </div>
+          <div class="col-4">
+            <% if user_signed_in? %>
+              <%= link_to destroy_user_session_path, method: :delete do %>
+                Log out
+              <% end %>
+              <%= link_to favorites_path do %>
+                Favorite
+              <% end %>
+            <% else %>
+              <%= link_to new_user_session_path do %>
+                Log in
+              <% end %>
+              <%= link_to  new_user_registration_path do %>
+                Sign up
+              <% end %>
+            <% end %>
+          </div>
+        </div>
       </div>
     </header>
     <%= yield %>

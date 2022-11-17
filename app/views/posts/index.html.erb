@@ -1,34 +1,50 @@
-<div>
-  <%= form_with model: @post, local:true do |f| %>
-    <% f.label :body %>
-    <%= f.text_area :body %>
-    <%= f.submit %>
-  <% end %>
+<div class="container">
+  <div  class="row">
+    <div class="col-11">
+      <%= form_with model: @post, local:true do |f| %>
+        <% f.label :body %>
+        <%= f.text_area :body %>
+        <div>
+          <%= f.label :images, '画像' %>
+          <%= f.file_field :images, multiple: true %>
+          <%= f.file_field :images, multiple: true %>
+          <%= f.file_field :images, multiple: true %>
+        </div>
+        <%= f.submit %>
+      <% end %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-11">
+      <% if @posts %>
+        <% @posts.each do |post| %>
+          <%= link_to post_path(post.id) do %>
+            <%= post.body %>
+            <% post.images.each do |image| %>
+              <%= image_tag(image, width:100) %>
+            <% end %>
+            <div>
+              <% if Like.find_by(post_id: post.id, ip: request.remote_ip) %>
+                <%= link_to '👍けしたい', post_likes_path(post), method: :delete %>
+              <% else %>
+                <%= link_to '👍したい', post_likes_path(post), method: :post %>
+              <% end %>
+              <%= Like.where(post_id: post.id).count %>
+            </div>
+            <div>
+              <% if Dislike.find_by(post_id: post.id, ip: request.remote_ip) %>
+                <%= link_to '👎けしたい', post_dislikes_path(post), method: :delete %>
+              <% else %>
+                <%= link_to '👎したい', post_dislikes_path(post), method: :post %>
+              <% end %>
+              <%= Dislike.where(post_id: post.id).count %>
+            </div>
+          <% end %>
+        <% end %>
+        <%= paginate @posts %>
+      <% end %>
+    </div>
+  </div>
 </div>
 
-<div>
-  <% if @posts %>
-    <% @posts.each do |post| %>
-      <%= link_to post_path(post.id) do %>
-        <%= post.body %>
-      <% end %>
-      <div>
-        <% if Like.find_by(post_id: post.id, ip: request.remote_ip) %>
-          <%= link_to '👍けしたい', post_likes_path(post), method: :delete %>
-        <% else %>
-          <%= link_to '👍したい', post_likes_path(post), method: :post %>
-        <% end %>
-        <%= Like.where(post_id: post.id).count %> 
-      </div>
-      <div>
-        <% if Dislike.find_by(post_id: post.id, ip: request.remote_ip) %>
-          <%= link_to '👎けしたい', post_dislikes_path(post), method: :delete %>
-        <% else %>
-          <%= link_to '👎したい', post_dislikes_path(post), method: :post %>
-        <% end %>
-        <%= Dislike.where(post_id: post.id).count %> 
-      </div>
-    <% end %>
-    <%= paginate @posts %>
-  <% end %>
-</div>
+
