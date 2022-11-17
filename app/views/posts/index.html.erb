@@ -29,5 +29,6 @@
         <%= Dislike.where(post_id: post.id).count %> 
       </div>
     <% end %>
+    <%= paginate @posts %>
   <% end %>
 </div>
