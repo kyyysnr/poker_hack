@@ -1,13 +1,12 @@
 <div class="container">
   <div  class="row">
-    <div class="col-11">
+    <div class="col-12">
       <%= form_with model: @post, local:true do |f| %>
         <% f.label :body %>
         <%= f.text_area :body %>
         <div>
           <%= f.label :images, '画像' %>
-          <%= f.file_field :images, multiple: true %>
-          <%= f.file_field :images, multiple: true %>
+          <!-- ctrl,commandを押下しながらで複数選択。スマホでどうなるか要検証 -->
           <%= f.file_field :images, multiple: true %>
         </div>
         <%= f.submit %>
