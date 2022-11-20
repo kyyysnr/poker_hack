@@ -14,7 +14,8 @@ class PostsController < ApplicationController
   end
 
   def index
-    @posts = Post.all.order(updated_at: :desc)
+    @posts = Post.page(params[:page]).order(updated_at: :desc)
+
     @post = Post.new
   end
 
@@ -39,7 +40,7 @@ class PostsController < ApplicationController
   private
 
   def post_params
-    params.require(:post).permit(:body)
+    params.require(:post).permit(:body, images: [])
   end
 
 end
