@@ -1,68 +1,86 @@
-<div>
-  <%= @post.body %>
-  <div>
-    <% if Like.find_by(post_id: @post.id, ip: request.remote_ip) %>
-      <%= link_to '👍けしたい', post_likes_path(@post), method: :delete %>
-    <% else %>
-      <%= link_to '👍したい', post_likes_path(@post), method: :post %>
-    <% end %>
-    <%= @likes.count %>
-  </div>
-  <div>
-    <% if Dislike.find_by(post_id: @post.id, ip: request.remote_ip) %>
-      <%= link_to '👎けしたい', post_dislikes_path(@post), method: :delete %>
-    <% else %>
-      <%= link_to '👎したい', post_dislikes_path(@post), method: :post %>
-    <% end %>
-    <%= Dislike.where(post_id: @post.id).count %>
-  </div>
-  <div>
-    <% if user_signed_in? %>
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <div>
+        <%= safe_join(@post.body.split("\n"),tag(:br))  %>
+        <div>
+          <% if Like.find_by(post_id: @post.id, ip: request.remote_ip) %>
+            <%= link_to '👍', post_likes_path(@post), method: :delete %>
+          <% else %>
+            <%= link_to '👍', post_likes_path(@post), method: :post %>
+          <% end %>
+          <%= @likes.count %>
+          <% if Dislike.find_by(post_id: @post.id, ip: request.remote_ip) %>
+            <%= link_to '👎', post_dislikes_path(@post), method: :delete %>
+          <% else %>
+            <%= link_to '👎', post_dislikes_path(@post), method: :post %>
+          <% end %>
+          <%= Dislike.where(post_id: @post.id).count %>
+        </div>
+        <div>
+          <% @post.images.each do |image| %>
+          <div>
+            <%= image_tag(image, width:400) %>
+          </div>
+          <% end %>
+        </div>
+        <div>
+          <% if user_signed_in? %>
 
-      <% if Favorite.find_by(post_id: @post.id, user_id: current_user.id) %>
-        <%= link_to post_favorites_path(@post),method: :delete do %>
-          ★お気に入り登録解除
-        <% end %>
-      <% else %>
-        <%= link_to post_favorites_path(@post),method: :post do %>
-          ★お気に入り登録
-        <% end %>
+            <% if Favorite.find_by(post_id: @post.id, user_id: current_user.id) %>
+              <%= link_to post_favorites_path(@post),method: :delete do %>
+                ★お気に入り登録解除
+              <% end %>
+            <% else %>
+              <%= link_to post_favorites_path(@post),method: :post do %>
+                ★お気に入り登録
+              <% end %>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+      <div>_______________________________________________________</div>
+    </div>
+  </div>
+  <div>
+    <% if @comments %>
+      <% @comments.each do |comment| %>
+        <%= safe_join(comment.body.split("\n"),tag(:br))  %>
+        <div>
+          <% comment.images.each do |image| %>
+            <%= image_tag(image, width:350) %>
+          <% end %>
+        </div>
+        <div>
+          <% if CommentLike.find_by(comment_id: comment.id, ip: request.remote_ip) %>
+            <%= link_to '👍',  comment_comment_likes_path(comment), method: :delete %>
+          <% else %>
+            <%= link_to '👍',  comment_comment_likes_path(comment), method: :post %>
+          <% end %>
+          <%= CommentLike.where(comment_id: comment.id).count %>
+          <% if CommentDislike.find_by(comment_id: comment.id, ip: request.remote_ip) %>
+            <%= link_to '👎', comment_comment_dislikes_path(comment), method: :delete %>
+          <% else %>
+            <%= link_to '👎', comment_comment_dislikes_path(comment), method: :post %>
+          <% end %>
+          <%= CommentDislike.where(comment_id: comment.id).count %>
+        </div>
       <% end %>
-
     <% end %>
+  </div>
 
+  <div class="row">
+    <%= form_with model: @comment ,local: true do |f| %>
+      <%= f.hidden_field :post_id, value: @post.id %>
+      <% f.label :body %>
+      <%= f.text_area :body %>
+      <div>
+        <%= f.label :images, '画像' %>
+        <!-- ctrl,commandを押下しながらで複数選択。スマホでどうなるか要検証 -->
+        <%= f.file_field :images, multiple: true %>
+      </div>
+      <%= f.submit %>
+    <% end %>
   </div>
 </div>
-<div>_______________________________________________________</div>
-<div>
-  <% if @comments %>
-    <% @comments.each do |comment| %>
-      <%= comment.body %>
-      <div>
-        <% if CommentLike.find_by(comment_id: comment.id, ip: request.remote_ip) %>
-          <%= link_to '👍けしたい',  comment_comment_likes_path(comment), method: :delete %>
-        <% else %>
-          <%= link_to '👍したい',  comment_comment_likes_path(comment), method: :post %>
-        <% end %>
-        <%= CommentLike.where(comment_id: comment.id).count %>
-      </div>
-      <div>
-        <% if CommentDislike.find_by(comment_id: comment.id, ip: request.remote_ip) %>
-          <%= link_to '👎けしたい', comment_comment_dislikes_path(comment), method: :delete %>
-        <% else %>
-          <%= link_to '👎したい', comment_comment_dislikes_path(comment), method: :post %>
-        <% end %>
-        <%= CommentDislike.where(comment_id: comment.id).count %>
-      </div>
-    <% end %>
-  <% end %>
-</div>
 
-<div>
-  <%= form_with model: @comment ,local: true do |f| %>
-    <%= f.hidden_field :post_id, value: @post.id %>
-    <% f.label :body %>
-    <%= f.text_area :body %>
-    <%= f.submit %>
-  <% end %>
-</div>

@@ -16,29 +16,42 @@
   <div class="row">
     <div class="col-11">
       <% if @posts %>
+      <div class="container">
+        <div class="row"></div>
+        <div class="row">
+          <div class="col"></div>
+          <div class="col"></div>
+        </div>
+      </div>
         <% @posts.each do |post| %>
+
           <%= link_to post_path(post.id) do %>
-            <%= post.body %>
-            <% post.images.each do |image| %>
-              <%= image_tag(image, width:100) %>
-            <% end %>
+            <%= safe_join(post.body.split("\n"),tag(:br))  %>
             <div>
-              <% if Like.find_by(post_id: post.id, ip: request.remote_ip) %>
-                <%= link_to '👍けしたい', post_likes_path(post), method: :delete %>
-              <% else %>
-                <%= link_to '👍したい', post_likes_path(post), method: :post %>
+              <% post.images.each do |image| %>
+                <%= image_tag(image, width:150) %>
               <% end %>
-              <%= Like.where(post_id: post.id).count %>
             </div>
             <div>
-              <% if Dislike.find_by(post_id: post.id, ip: request.remote_ip) %>
-                <%= link_to '👎けしたい', post_dislikes_path(post), method: :delete %>
+              <% if Like.find_by(post_id: post.id, ip: request.remote_ip) %>
+                <%= link_to '👍', post_likes_path(post), method: :delete %>
               <% else %>
-                <%= link_to '👎したい', post_dislikes_path(post), method: :post %>
+                <%= link_to '👍', post_likes_path(post), method: :post %>
+              <% end %>
+              <%= Like.where(post_id: post.id).count %>
+
+              <% if Dislike.find_by(post_id: post.id, ip: request.remote_ip) %>
+                <%= link_to '👎', post_dislikes_path(post), method: :delete %>
+              <% else %>
+                <%= link_to '👎', post_dislikes_path(post), method: :post %>
               <% end %>
               <%= Dislike.where(post_id: post.id).count %>
             </div>
           <% end %>
+          <div>
+            コメント数：<%= post.comments.count %>
+          </div>
+
         <% end %>
         <%= paginate @posts %>
       <% end %>
