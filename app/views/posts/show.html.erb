@@ -4,18 +4,12 @@
       <div>
         <%= safe_join(@post.body.split("\n"),tag(:br))  %>
         <div>
-          <% if Like.find_by(post_id: @post.id, ip: request.remote_ip) %>
-            <%= link_to '👍', post_likes_path(@post), method: :delete %>
-          <% else %>
-            <%= link_to '👍', post_likes_path(@post), method: :post %>
-          <% end %>
-          <%= @likes.count %>
-          <% if Dislike.find_by(post_id: @post.id, ip: request.remote_ip) %>
-            <%= link_to '👎', post_dislikes_path(@post), method: :delete %>
-          <% else %>
-            <%= link_to '👎', post_dislikes_path(@post), method: :post %>
-          <% end %>
-          <%= Dislike.where(post_id: @post.id).count %>
+          <span id="post_<%= @post.id %>">
+            <%= render'likes/like-btn',post: @post %>
+          </span>
+          <span id="post_dislike_<%= @post.id %>">
+            <%= render'dislikes/dislike-btn',post: @post %>
+          </span>
         </div>
         <div>
           <% @post.images.each do |image| %>
