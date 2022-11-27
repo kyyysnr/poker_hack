@@ -1,6 +1,20 @@
-<p>お気に入り一覧</p>
-<% @favorites.each do |favorite| %>
-  <%= link_to post_path(favorite.post.id) do %>
-    <%= favorite.post.body %>
+<div class="container">
+  <div class="row">
+    <p>お気に入り一覧</p>
+  </div>
+  <% @favorites.each do |favorite| %>
+  <div class="row">
+    <%= link_to post_path(favorite.post.id) do %>
+      <%= favorite.post.body %>
+      <div>
+        <% favorite.post.images.each do |image| %>
+          <%= image_tag(image, width:150) %>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
   <% end %>
-<% end %>
+</div>
+
+
+
