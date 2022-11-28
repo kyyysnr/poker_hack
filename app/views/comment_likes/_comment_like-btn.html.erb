@@ -1,0 +1,6 @@
+<% if CommentLike.find_by(comment_id: comment.id, ip: request.remote_ip) %>
+  <%= link_to '👍',  comment_comment_likes_path(comment), method: :delete,remote: true %>
+<% else %>
+  <%= link_to '👍',  comment_comment_likes_path(comment), method: :post, remote: true %>
+<% end %>
+<%= CommentLike.where(comment_id: comment.id).count %>
