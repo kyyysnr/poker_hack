@@ -1,0 +1,6 @@
+<% if CommentDislike.find_by(comment_id: comment.id, ip: request.remote_ip) %>
+  <%= link_to '👎', comment_comment_dislikes_path(comment), method: :delete, remote: true %>
+<% else %>
+  <%= link_to '👎', comment_comment_dislikes_path(comment), method: :post, remote: true %>
+<% end %>
+<%= CommentDislike.where(comment_id: comment.id).count %>

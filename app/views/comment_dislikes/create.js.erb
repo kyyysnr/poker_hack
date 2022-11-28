@@ -1,0 +1,1 @@
+document.getElementById('comment_dislike_<%= @comment.id %>').innerHTML = '<%= j(render partial: 'comment_dislikes/comment_dislike-btn', locals: {comment: @comment})%>'

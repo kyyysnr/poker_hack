@@ -1,0 +1,1 @@
+document.getElementById('comment_<%= @comment.id %>').innerHTML = '<%= j(render partial: 'comment_likes/comment_like-btn', locals: {comment: @comment})%>'
