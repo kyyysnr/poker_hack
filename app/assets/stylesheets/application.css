@@ -13,3 +13,16 @@
  *= require_tree .
  *= require_self
  */
+a:link, a:visited, a:hover, a:active {
+  color: black;
+}
+
+
+.header-link a {
+    color: white;
+}
+
+.header-link-right{
+    display: grid;
+    align-items: center;
+}

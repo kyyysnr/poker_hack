@@ -61,7 +61,7 @@
     <%= form_with model: @comment ,local: true do |f| %>
       <%= f.hidden_field :post_id, value: @post.id %>
       <% f.label :body %>
-      <%= f.text_area :body %>
+      <%= f.text_area :body,class:"form-control" %>
       <div>
         <%= f.label :images, '画像' %>
         <!-- ctrl,commandを押下しながらで複数選択。スマホでどうなるか要検証 -->

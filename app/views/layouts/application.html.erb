@@ -11,31 +11,35 @@
   </head>
 
   <body>
-    <header>
+    <header class="bg-info text-white">
       <div class="container">
         <div class="row">
           <div class="col-8">
-            <h1>
-              <%= link_to posts_path do %>
+            <h1 class="header-link">
+              <%= link_to posts_path class:"header-link"  do %>
                 PokerHack
               <% end %>
             </h1>
           </div>
           <div class="col-4">
             <% if user_signed_in? %>
-              <%= link_to destroy_user_session_path, method: :delete do %>
+            <div class="header-link">
+              <%= link_to destroy_user_session_path class:"header-link-right", method: :delete do %>
                 Log out
               <% end %>
-              <%= link_to favorites_path do %>
+              <%= link_to favorites_path class:"header-link-right" do %>
                 Favorite
               <% end %>
+            </div>
             <% else %>
-              <%= link_to new_user_session_path do %>
-                Log in
+            <div class="header-link">
+              <%= link_to new_user_session_path class:"header-link-right" do %>
+                 Log in
               <% end %>
-              <%= link_to  new_user_registration_path do %>
+              <%= link_to  new_user_registration_path class:"header-link-right"  do %>
                 Sign up
               <% end %>
+            </div>
             <% end %>
           </div>
         </div>

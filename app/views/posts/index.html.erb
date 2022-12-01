@@ -1,15 +1,16 @@
 <div class="container">
   <div  class="row">
     <div class="col-12">
+      <h4>新規投稿</h4>
       <%= form_with model: @post, local:true do |f| %>
         <% f.label :body %>
-        <%= f.text_area :body %>
+        <%= f.text_area :body,class:"form-control" %>
         <div>
           <%= f.label :images, '画像' %>
           <!-- ctrl,commandを押下しながらで複数選択。スマホでどうなるか要検証 -->
           <%= f.file_field :images, multiple: true %>
         </div>
-        <%= f.submit %>
+        <%= f.submit class:"btn btn-primary mb-2" %>
       <% end %>
     </div>
   </div>
@@ -17,34 +18,42 @@
     <div class="col-11">
       <% if @posts %>
       <div class="container">
-        <div class="row"></div>
+        <div class="row">
+          <h4>新着投稿</h4>
+        </div>
         <div class="row">
           <div class="col"></div>
           <div class="col"></div>
         </div>
       </div>
         <% @posts.each do |post| %>
-
-          <%= link_to post_path(post.id) do %>
-            <%= safe_join(post.body.split("\n"),tag(:br))  %>
-            <div>
-              <% post.images.each do |image| %>
-                <%= image_tag(image, width:150) %>
+          <div class="card">
+            <div class="card-body">
+              <%= link_to post_path(post.id) do %>
+              <p class="card-text">
+                <%= safe_join(post.body.split("\n"),tag(:br))  %>
+                <div>
+                  <% post.images.each do |image| %>
+                    <%= image_tag(image, width:150) %>
+                  <% end %>
+                </div>
+              </p>
               <% end %>
             </div>
-          <% end %>
-            <div>
-              <span id="post_<%= post.id %>">
-                <%= render'likes/like-btn',post: post %>
-              </span>
-              <span id="post_dislike_<%= post.id %>">
-                <%= render'dislikes/dislike-btn',post: post %>
-              </span>  
+            <div class="card-footer">
+              <div>
+                <span id="post_<%= post.id %>">
+                  <%= render'likes/like-btn',post: post %>
+                </span>
+                <span id="post_dislike_<%= post.id %>">
+                  <%= render'dislikes/dislike-btn',post: post %>
+                </span>
+              </div>
+              <div>
+                コメント数：<%= post.comments.count %>
+              </div>
             </div>
-          <div>
-            コメント数：<%= post.comments.count %>
           </div>
-
         <% end %>
         <%= paginate @posts %>
       <% end %>
