@@ -12,6 +12,7 @@ Rails.application.routes.draw do
     resource :comment_likes, only: [:create, :destroy]
     resource :comment_dislikes, only: [:create, :destroy]
   end
+  get '/search', to: 'searches#search'
 
   resources :favorites, only: [:index]
   resources :bankrolls
