@@ -16,7 +16,7 @@
         <div class="row">
           <div class="col-8">
             <h1 class="header-link">
-              <%= link_to posts_path class:"header-link"  do %>
+              <%= link_to posts_path do %>
                 PokerHack
               <% end %>
             </h1>
@@ -28,19 +28,19 @@
             <% end %>
             <% if user_signed_in? %>
             <div class="header-link">
-              <%= link_to destroy_user_session_path class:"header-link-right", method: :delete do %>
+              <%= link_to destroy_user_session_path , method: :delete do %>
                 Log out
               <% end %>
-              <%= link_to favorites_path class:"header-link-right" do %>
+              <%= link_to favorites_path do %>
                 Favorite
               <% end %>
             </div>
             <% else %>
             <div class="header-link">
-              <%= link_to new_user_session_path class:"header-link-right" do %>
+              <%= link_to new_user_session_path do %>
                  Log in
               <% end %>
-              <%= link_to  new_user_registration_path class:"header-link-right"  do %>
+              <%= link_to  new_user_registration_path do %>
                 Sign up
               <% end %>
             </div>
