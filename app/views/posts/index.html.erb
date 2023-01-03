@@ -50,8 +50,9 @@
                 </span>
               </div>
               <div>
-                コメント数：<%= post.comments.count %>
-                <%= post.created_at.strftime('%Y/%m/%d') %>
+                コメント数：<%= post.comments.count %>/
+                投稿日:<%= post.created_at.strftime('%Y/%m/%d') %>/
+                最終更新:<%= post.updated_at.strftime('%Y/%m/%d') %>
               </div>
             </div>
           </div>
