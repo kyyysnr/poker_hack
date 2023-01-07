@@ -7,7 +7,7 @@
         <%= f.text_area :body,class:"form-control" %>
         <div>
           <%= f.label :images, '画像' %>
-          <!-- ctrl,commandを押下しながらで複数選択。スマホでどうなるか要検証 -->
+      
           <%= f.file_field :images, multiple: true %>
         </div>
         <%= f.submit class:"btn btn-primary mb-2" %>
