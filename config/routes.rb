@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
 
   devise_for :users
-  root to:"posts#index"
+  root to:"homes#about"
   get "about" => "homes#about", as: :about
   resources :posts do
     resource :likes, only: [:create,:destroy]
