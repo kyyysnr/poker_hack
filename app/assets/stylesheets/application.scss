@@ -13,9 +13,13 @@
  *= require_tree .
  *= require_self
  */
+
+
  header{
-     color: #afeeee;
+    background-color: #333333;
+    opacity: 0.9;
  }
+
 
 a:link, a:visited, a:hover, a:active {
   color: black;

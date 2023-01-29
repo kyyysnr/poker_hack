@@ -2,8 +2,16 @@
 @import '~@fortawesome/fontawesome-free/scss/fontawesome';
 
  header{
-     color: #afeeee;
+    background-color: #333333;
+    opacity: 0.9;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1;
+
  }
+
 
 a:link, a:visited, a:hover, a:active {
   color: black;
