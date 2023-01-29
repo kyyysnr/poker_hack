@@ -13,8 +13,20 @@
  *= require_tree .
  *= require_self
  */
+footer{
+
+  width: 90%;
+  margin: 0 auto;
+  padding-bottom: 50px;
+
+  color: white;
 
 
+}
+
+.footer-contents{
+ color: white;
+}
 .post-container{
 
   width: 90%;
@@ -24,11 +36,10 @@
 }
 
 .devise-container{
-  padding-top:100px;
-  position: absolute;
-  top: 25%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+
+  width: 90%;
+  margin: 0 auto;
+　text-align: center;
 }
 
  header{
