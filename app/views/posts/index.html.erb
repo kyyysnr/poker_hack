@@ -1,13 +1,18 @@
-<div class="postcontainer">
+<br>
+<br>
+<br>
+<br>
+<div class="post-container">
   <div  class="row">
     <div class="col-12">
+      <div></div>
       <h4>新規投稿</h4>
       <%= form_with model: @post, local:true do |f| %>
         <% f.label :body %>
         <%= f.text_area :body,class:"form-control" %>
         <div>
           <%= f.label :images, '画像' %>
-      
+
           <%= f.file_field :images, multiple: true %>
         </div>
         <%= f.submit class:"btn btn-primary mb-2" %>
@@ -51,11 +56,12 @@
               </div>
               <div>
                 コメント数：<%= post.comments.count %>/
-                投稿日:<%= post.created_at.strftime('%Y/%m/%d') %>/
-                最終更新:<%= post.updated_at.strftime('%Y/%m/%d') %>
+                投稿日:<%= post.created_at.strftime('%Y年%m月%d日') %>/
+                最終更新:<%= distance_of_time_in_words(post.updated_at, Time.now) %>前
               </div>
             </div>
           </div>
+          <br>
         <% end %>
         <%= paginate @posts %>
       <% end %>
