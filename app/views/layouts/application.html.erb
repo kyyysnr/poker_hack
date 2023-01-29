@@ -36,6 +36,9 @@
                 Favorite
               <% end %>
             </div>
+            <div class="header-link">
+              <%= current_user.name %>
+            </div>
             <% else %>
             <div class="header-link">
               <%= link_to new_user_session_path do %>
