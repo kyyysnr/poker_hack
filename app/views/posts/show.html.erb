@@ -16,7 +16,11 @@
             </div>
             <% end %>
           </div>
-
+          <div>
+            <% if @post.youtube_url %>
+              <iframe class="video" src="https://www.youtube.com/embed/<%= @post.youtube_url %>" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen ></iframe>
+            <% end %>
+          </div>
 
 
         </div>
@@ -94,7 +98,6 @@
       <%= f.text_area :body,class:"form-control" %>
       <div>
         <%= f.label :images, '画像' %>
-        <!-- ctrl,commandを押下しながらで複数選択。スマホでどうなるか要検証 -->
         <%= f.file_field :images, multiple: true %>
       </div>
       <%= f.submit "投稿する", class:"btn btn-primary mb-2" %>
